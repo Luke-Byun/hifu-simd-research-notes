@@ -9,7 +9,7 @@
 
 ## 설정
 
-Medical-SAM3 분할 기준선(C2)과 masked image modeling(MIM) v1·v2를 비교했습니다. v2는 입력 화면 형식을 UFUV에 맞췄습니다. Downstream은 336 px, 30 epoch, 비디오 그룹 기반 5-fold로 실행하고 마지막 epoch의 **frame-mean Dice**를 주 지표로 기록했습니다. 내부 임상 영상은 비식별 파생본으로만 학습에 사용했고 이 저장소에는 포함하지 않았습니다.
+Medical-SAM3 분할 기준선(C2)과 masked image modeling(MIM) v1·v2를 비교했습니다. v2는 입력 화면 형식을 UFUV에 맞췄습니다. Downstream은 336 px, 30 epoch, 비디오 그룹 기반 5-fold로 실행하고 마지막 epoch의 **frame-mean Dice**를 주 지표로 기록했습니다. SSL 사전학습에는 공개 자료와 GODIUS 비식별 파생 영상을 사용했습니다. 이 저장소에는 GODIUS 영상·마스크·오버레이를 포함하지 않고 집계 수치만 기록합니다.
 
 ## 관찰
 

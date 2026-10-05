@@ -19,8 +19,37 @@ UFUV는 100개 비디오, 비디오당 50프레임으로 구성됩니다. 개발
 | MedSAM3 초기화 LoRA | 0.7269 | 영상 기반, 해당 실행 설정 |
 | MedSAM3 초기화 + 일반 증강 | 0.7230 | 증강 조건 |
 | LGRNet 공개 PVTv2 설정 | 0.721988 | 12 epoch 진단, frame-mean Dice |
+| LGRNet Res2Net50 적응 실행 | 0.679667 | 12 epoch 진단, frame-mean Dice; 아래 그림의 모델 |
+
+두 LGRNet 실행의 추가 지표는 다음과 같습니다.
+
+| LGRNet 실행 | frame-mean Dice | IoU | Sensitivity | S-measure | MAE |
+|---|---:|---:|---:|---:|---:|
+| PVTv2 공개 설정 | 0.721988 | 0.591211 | 0.697797 | 0.755287 | 0.069637 |
+| Res2Net50 적응 | 0.679667 | 0.541273 | 0.651422 | 0.727665 | 0.078040 |
 
 LGRNet 논문에서 설명한 backbone과 공개 fibroid 설정의 backbone이 다릅니다. 따라서 위 실행을 논문의 숫자와 동일 조건의 재현으로 해석하지 않습니다.
+
+### 비디오별 분포
+
+17개 공개 test 비디오의 Dice를 ID 없이 요약했습니다. 수치는 **비디오별 평균의 분포**이므로 위의 frame-mean Dice와 집계 단위가 다릅니다.
+
+| LGRNet 실행 | 비디오 수 | 최솟값 | 중앙값 | 최댓값 |
+|---|---:|---:|---:|---:|
+| PVTv2 공개 설정 | 17 | 0.5217 | 0.7404 | 0.8379 |
+| Res2Net50 적응 | 17 | 0.5020 | 0.6938 | 0.7925 |
+
+![공개 UFUV 비디오별 Dice 분포](../figures/ufuv_public_per_video_dice.png)
+
+## 공개 데이터 정성 결과
+
+아래 패널은 **공개 UFUV test 프레임만** 사용했습니다. 각각 왼쪽부터 원본, 정답(녹색), Res2Net50 적응 실행의 예측(빨간색)입니다. 두 사례는 경계가 비교적 잘 맞는 경우와 일부 영역이 어긋난 경우를 보여주는 예시이며, 전체 850프레임의 분포를 대신하지 않습니다.
+
+![공개 UFUV 사례 A: 원본, 정답, 예측](../figures/ufuv_public_example_a.png)
+
+![공개 UFUV 사례 B: 원본, 정답, 예측](../figures/ufuv_public_example_b.png)
+
+[그림의 출처와 조건](../figures/README.md)을 참고하세요.
 
 ## 해석
 

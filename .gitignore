@@ -1,7 +1,12 @@
-# Only reviewed research notes are tracked.
+# Only reviewed research notes and public UFUV result panels are tracked.
 *
 !.gitignore
 !README.md
 !PRIVACY.md
 !notes/
 !notes/*.md
+!figures/
+!figures/*.md
+!figures/ufuv_public_example_a.png
+!figures/ufuv_public_example_b.png
+!figures/ufuv_public_per_video_dice.png
