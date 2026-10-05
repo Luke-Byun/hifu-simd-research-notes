@@ -1,24 +1,26 @@
-# MRI 평면 간 학습 가능성 조사
+# Cross-plane MRI: Is Reslicing Enough?
 
-- 기록 시기: 2026-09
-- 상태: 데이터 조건 조사 완료
+*September 2026 · Public UMD MRI volumes*
 
-## 질문
+## Question
 
-Sagittal 영상의 정보를 활용해 axial·coronal 방향으로 확장할 때, 원본 볼륨의 공간 해상도가 충분한가?
+Can sagittal volumes be resliced into useful axial and coronal views, or is the through-plane spacing too large?
 
-## 설정
+## Measurement
 
-공개 UMD MRI 볼륨 239개의 면내 해상도, 평면 간 간격, 볼륨당 슬라이스 수를 조사했습니다. 목표 평면에 대한 정량 평가에는 해당 평면의 정답 mask가 필요하다는 조건도 함께 정리했습니다.
+I checked in-plane resolution, slice spacing, and slice count in 239 public UMD MRI volumes.
 
-## 관찰
+| Quantity | Mean |
+|---|---:|
+| In-plane resolution | 0.49 mm |
+| Through-plane spacing | 5.75 mm |
+| Spacing ratio | 12.2× |
+| Slices per volume | about 22 |
 
-평균 면내 해상도는 약 **0.49 mm**, 평면 간 간격은 약 **5.75 mm**로, 이방성 비율은 평균 **12.2배**였습니다. 볼륨당 슬라이스는 평균 약 **22장**이었습니다.
+## Readout
 
-## 해석
+Most of the pixels in an orthogonal reslice would have to be interpolated across a much coarser axis. Reslicing alone is unlikely to reproduce the detail in a directly acquired axial or coronal scan. There are also no target-plane masks in this evaluation set, so cross-plane segmentation accuracy cannot yet be measured.
 
-이 해상도에서는 단순 재슬라이싱으로 실제 axial·coronal 촬영과 동등한 세부 정보를 얻기 어렵습니다. 평면 간 일반화 주장은 목표 평면의 라벨을 확보한 뒤 정량 평가해야 합니다.
+## Next
 
-## 다음 단계
-
-목표 평면 라벨이 확보되면 환자 단위 분할과 동일한 지표로 직접 추론·재투영 결과를 비교합니다.
+Once target-plane labels are available, compare direct inference and geometric reprojection on a patient-level split using the same metrics.

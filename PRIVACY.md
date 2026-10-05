@@ -1,7 +1,7 @@
-# 공개 범위와 데이터 출처
+# Data and Figure Provenance
 
-이 저장소의 정성 결과 패널 두 장은 **저자 공개 UFUV 데이터셋의 test 영상**에서 생성했습니다. 해당 [데이터셋 페이지](https://huggingface.co/datasets/huihuixu/uterine_fibroid_ultrasound_video_segmentation)는 라이선스를 MIT로 표시합니다. 패널은 원본 프레임, 정답 영역, 모델 예측을 나란히 보여줍니다. 화면에서 인명·날짜 등 식별정보가 보이지 않는지 확인했고 PNG 메타데이터가 없음을 확인했습니다. [그림 출처와 조건](figures/README.md)을 함께 기록합니다.
+The two qualitative panels in this repository use frames from the authors' [public UFUV test release](https://huggingface.co/datasets/huihuixu/uterine_fibroid_ultrasound_video_segmentation). The dataset page lists an MIT license. Each panel shows the frame, ground-truth mask overlay, and model prediction. We checked the displayed pixels for names and dates and confirmed that the PNG files contain no metadata. The third figure plots per-video Dice from the same public test set. [Figure details](figures/README.md).
 
-**GODIUS 및 다른 비공개 임상 데이터의 영상·마스크·오버레이는 이 저장소의 그림에 사용하지 않습니다.** GODIUS를 학습에 사용한 실험의 집계 성능 수치는 연구 노트에 기록할 수 있습니다. GODIUS 원본·비식별 파생 영상, 환자별 예측, DICOM/NIfTI, 원본 데이터 manifest, 체크포인트, 내부 경로·로그·접근 토큰도 올리지 않습니다.
+No GODIUS or other private clinical image, mask, or overlay is used in these figures. The [MIM note](notes/2026-10-04-ultrasound-mim.md) reports aggregate scores from a run that did use de-identified GODIUS images for pretraining. This repository does not contain those images, patient-level predictions, DICOM/NIfTI files, raw manifests, checkpoints, internal paths, logs, or credentials.
 
-`.gitignore`는 검토한 문서와 위 공개 UFUV 패널과 비디오별 Dice 분포 그림만 허용합니다. 새 그림을 추가할 때마다 데이터 출처, 화면 식별정보, 파일 메타데이터, 배포 조건을 확인합니다. 임상 성능이나 환자 단위 결과를 이 저장소의 그림에서 추론하지 않습니다.
+The `.gitignore` file admits only the reviewed notes and three public-UFUV figures. Check the source, visible text, metadata, and redistribution terms before adding another image.

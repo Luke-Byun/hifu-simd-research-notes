@@ -1,60 +1,55 @@
-# UFUV 초음파 분할 기준선
+# UFUV Ultrasound Baselines
 
-- 기록일: 2026-10-02
-- 상태: 공개 벤치마크 진단 실행 기록
+*2026-10-02 · Public UFUV release*
 
-## 질문
+## Question
 
-공개 자궁근종 초음파 비디오 UFUV에서 영상 기반 모델과 비디오 기반 모델의 결과는 어떠한가?
+What do the image-based SAM3 models and a video-based LGRNet run produce on the released UFUV split?
 
-## 설정
+## Setup
 
-UFUV는 100개 비디오, 비디오당 50프레임으로 구성됩니다. 개발 분할은 train 73, validation 10, 공개 test 17비디오였습니다. 영상 기반 SAM3-LoRA와 MedSAM3 초기화 LoRA, 비디오 기반 LGRNet 공개 설정을 조사했습니다.
+UFUV contains 100 videos with 50 frames each. The image-model development split used 73 training, 10 validation, and 17 public test videos. The LGRNet diagnostic runs used the released 83/17 split. These are separate run settings; the scores below are a record of each run, not a matched model comparison.
 
-## 관찰
+## Scores
 
-| 실행 | 공개 UFUV 평가 Dice | 기록 조건 |
+| Run | Reported UFUV Dice | Setting |
 |---|---:|---|
-| SAM3-LoRA | 약 0.7143 | 영상 기반 기준선 |
-| MedSAM3 초기화 LoRA | 0.7269 | 영상 기반, 해당 실행 설정 |
-| MedSAM3 초기화 + 일반 증강 | 0.7230 | 증강 조건 |
-| LGRNet 공개 PVTv2 설정 | 0.721988 | 12 epoch 진단, frame-mean Dice |
-| LGRNet Res2Net50 적응 실행 | 0.679667 | 12 epoch 진단, frame-mean Dice; 아래 그림의 모델 |
+| SAM3-LoRA | about 0.7143 | Image-based baseline |
+| MedSAM3-initialized LoRA | 0.7269 | Image-based run |
+| MedSAM3 initialization + augmentation | 0.7230 | Image-based run with augmentation |
+| LGRNet, released PVTv2 config | 0.721988 | 12-epoch diagnostic; frame-mean Dice |
+| LGRNet, Res2Net50 adaptation | 0.679667 | 12-epoch diagnostic; frame-mean Dice; model shown below |
 
-두 LGRNet 실행의 추가 지표는 다음과 같습니다.
+Additional metrics for the two LGRNet runs:
 
-| LGRNet 실행 | frame-mean Dice | IoU | Sensitivity | S-measure | MAE |
+| Run | Frame-mean Dice | IoU | Sensitivity | S-measure | MAE |
 |---|---:|---:|---:|---:|---:|
-| PVTv2 공개 설정 | 0.721988 | 0.591211 | 0.697797 | 0.755287 | 0.069637 |
-| Res2Net50 적응 | 0.679667 | 0.541273 | 0.651422 | 0.727665 | 0.078040 |
+| PVTv2 public config | 0.721988 | 0.591211 | 0.697797 | 0.755287 | 0.069637 |
+| Res2Net50 adaptation | 0.679667 | 0.541273 | 0.651422 | 0.727665 | 0.078040 |
 
-LGRNet 논문에서 설명한 backbone과 공개 fibroid 설정의 backbone이 다릅니다. 따라서 위 실행을 논문의 숫자와 동일 조건의 재현으로 해석하지 않습니다.
+The paper describes a Res2Net50 backbone, while the released fibroid config uses PVTv2. Neither diagnostic run reproduces the exact paper setup.
 
-### 비디오별 분포
+### Variation across videos
 
-17개 공개 test 비디오의 Dice를 ID 없이 요약했습니다. 수치는 **비디오별 평균의 분포**이므로 위의 frame-mean Dice와 집계 단위가 다릅니다.
+These are **per-video** Dice values across the 17 public test videos. They use a different averaging unit from the frame-mean Dice above.
 
-| LGRNet 실행 | 비디오 수 | 최솟값 | 중앙값 | 최댓값 |
+| LGRNet run | Videos | Min | Median | Max |
 |---|---:|---:|---:|---:|
-| PVTv2 공개 설정 | 17 | 0.5217 | 0.7404 | 0.8379 |
-| Res2Net50 적응 | 17 | 0.5020 | 0.6938 | 0.7925 |
+| PVTv2 public config | 17 | 0.5217 | 0.7404 | 0.8379 |
+| Res2Net50 adaptation | 17 | 0.5020 | 0.6938 | 0.7925 |
 
-![공개 UFUV 비디오별 Dice 분포](../figures/ufuv_public_per_video_dice.png)
+![Per-video Dice on the public UFUV test set](../figures/ufuv_public_per_video_dice.png)
 
-## 공개 데이터 정성 결과
+### Example predictions
 
-아래 패널은 **공개 UFUV test 프레임만** 사용했습니다. 각각 왼쪽부터 원본, 정답(녹색), Res2Net50 적응 실행의 예측(빨간색)입니다. 두 사례는 경계가 비교적 잘 맞는 경우와 일부 영역이 어긋난 경우를 보여주는 예시이며, 전체 850프레임의 분포를 대신하지 않습니다.
+Both panels use public UFUV test frames. Left to right: frame, ground truth (green), and the Res2Net50 adaptation's prediction (red). They illustrate two different outcomes; they do not summarize all 850 test frames.
 
-![공개 UFUV 사례 A: 원본, 정답, 예측](../figures/ufuv_public_example_a.png)
+![Public UFUV example A](../figures/ufuv_public_example_a.png)
 
-![공개 UFUV 사례 B: 원본, 정답, 예측](../figures/ufuv_public_example_b.png)
+![Public UFUV example B](../figures/ufuv_public_example_b.png)
 
-[그림의 출처와 조건](../figures/README.md)을 참고하세요.
+See [figure provenance](../figures/README.md).
 
-## 해석
+## Next
 
-영상 기반과 비디오 기반 실행은 입력 프레임 수와 학습 설정이 달라 수치만으로 시간 정보의 기여를 분리할 수 없습니다.
-
-## 다음 단계
-
-비디오 ID, 입력 프레임 수, 학습 예산, checkpoint 선택 기준과 평가 단위를 고정한 비교를 설계합니다.
+A test of temporal context needs matched video IDs, input frames, training budget, checkpoint rule, and metric. The current runs do not isolate that effect.

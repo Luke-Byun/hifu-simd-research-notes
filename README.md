@@ -1,18 +1,12 @@
-# 자궁근종 영상 분할 연구 노트
+# Uterine Fibroid Segmentation: Research Notes
 
-공개 UMD MRI와 공개 UFUV 초음파 데이터에서 자궁근종 영상 분할을 연구한 질문, 설정, 관찰, 다음 실험을 기록합니다. 결과 그림은 공개 데이터 실험에서만 선택했습니다. 집계 수치에는 비공개 GODIUS 영상을 학습에 사용한 실험도 포함합니다. 마지막 정리: **2026-10-05**.
+Working notes from MRI and ultrasound segmentation experiments. Last updated **2026-10-05**. Each entry records the setup, the result, and the question it left open.
 
-## 노트 목록
-
-| 기록 시기 | 주제 | 현재 상태 |
+| Date | Note | What it covers |
 |---|---|---|
-| 2026-09 | [MRI 분할 기준선](notes/2026-09-mri-baseline.md) | 모델 비교와 크기별 평가 설계 정리 |
-| 2026-09 | [평면 간 학습 가능성](notes/2026-09-cross-plane-feasibility.md) | 영상 해상도와 라벨 범위 조사 완료 |
-| 2026-10-02 | [UFUV 초음파 기준선](notes/2026-10-02-ufuv-baselines.md) | 공개 벤치마크 수치와 공개 UFUV 결과 패널 기록 |
-| 2026-10-04 | [초음파 MIM 실험](notes/2026-10-04-ultrasound-mim.md) | 집계 수치 기록; GODIUS 영상 그림은 게시하지 않음 |
+| Sep 2026 | [MRI baseline](notes/2026-09-mri-baseline.md) | SAM3/MedSAM3 LoRA setup and lesion-size analysis |
+| Sep 2026 | [Cross-plane feasibility](notes/2026-09-cross-plane-feasibility.md) | Resolution limits of the public UMD MRI volumes |
+| Oct 2, 2026 | [UFUV baselines](notes/2026-10-02-ufuv-baselines.md) | Public ultrasound benchmark scores and example predictions |
+| Oct 4, 2026 | [Ultrasound MIM](notes/2026-10-04-ultrasound-mim.md) | Five-fold downstream results after masked-image pretraining |
 
-## 기록 규칙
-
-각 노트는 **질문 → 설정 → 관찰 → 해석 → 다음 단계** 순서로 씁니다. 서로 다른 데이터셋이나 지표 단위의 수치는 직접 비교하지 않습니다. 실험 결과는 해당 데이터와 평가 조건에서의 관찰이며 임상 성능을 뜻하지 않습니다.
-
-결과 그림은 저자 공개 UFUV test의 두 패널과 17비디오 Dice 분포입니다. GODIUS 및 다른 비공개 임상 데이터의 영상·마스크·오버레이는 게시하지 않습니다. [공개 범위와 출처](PRIVACY.md)에 파일 추가 기준을 적었습니다.
+The MRI and ultrasound numbers use different datasets and averaging rules. The UFUV figures come only from the [public UFUV release](https://huggingface.co/datasets/huihuixu/uterine_fibroid_ultrasound_video_segmentation). The MIM note includes aggregate results from pretraining that used de-identified GODIUS images; no GODIUS image, mask, or overlay is published here. [Data and figure provenance](PRIVACY.md).
