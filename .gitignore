@@ -1,0 +1,7 @@
+# Only reviewed research notes are tracked.
+*
+!.gitignore
+!README.md
+!PRIVACY.md
+!notes/
+!notes/*.md
